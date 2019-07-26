@@ -25,7 +25,11 @@ export default {
       })
     }
   },
-  created () {}
+  created () {},
+  onShow () {
+    const scanParamFromRoot = this.$root.$mp.query.q
+    this.qrcode = scanParamFromRoot ? decodeURIComponent(scanParamFromRoot) : ''
+  }
 }
 </script>
 
