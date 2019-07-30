@@ -41,6 +41,8 @@ export default {
     qrCode (newQrCode) {
       const fragmentArray = newQrCode.split('/')
       const certId = fragmentArray[fragmentArray.length - 1]
+      if (!/[A-Za-z0-9]{66}/g.test(certId)) return
+
       this.$http.get(`/certifications/${certId}`).then((res) => {
         this.certDetail = res
       }).catch((e) => {
