@@ -1,7 +1,13 @@
 <template>
   <div>
     <div class='scan' @click='scan'>Scan Certificate</div>
-    <div>Certificate Result: {{ qrcode }}</div>
+    <div>qrCode: {{ qrCode }}</div>
+    <ul v-show="isShowCertDetail" class='cert-detail'>Certificate Detail
+      <li class='cert-detail-item'>Subject: {{certDetail.subject}}</li>
+      <li class='cert-detail-item'>Name:{{certDetail.lastName}}{{certDetail.firstName}}</li>
+      <li class='cert-detail-item'>Issue Date:{{certDetail.issueDate}}</li>
+      <li class='cert-detail-item'>Expire Date: {{certDetail.expireDate}}</li>
+    </ul>
   </div>
 </template>
 
@@ -10,25 +16,43 @@
 export default {
   data () {
     return {
-      qrcode: ''
+      qrCode: '',
+      certDetail: {}
     }
   },
   methods: {
     scan () {
       wx.scanCode({
         success: (res) => {
-          this.qrcode = res.result
+          this.qrCode = res.result
         },
         fail: (error) => {
-          this.qrcode = error
+          this.qrCode = error
         }
       })
     }
   },
-  created () {},
-  onShow () {
+  computed: {
+    isShowCertDetail () {
+      return Object.keys(this.certDetail).length !== 0
+    }
+  },
+  watch: {
+    qrCode (newQrCode) {
+      const fragmentArray = newQrCode.split('/')
+      const certId = fragmentArray[fragmentArray.length - 1]
+      this.$http.get(`/certifications/${certId}`).then((res) => {
+        this.certDetail = res
+      }).catch((e) => {
+        console.log(e)
+      })
+    }
+  },
+  onReady () {
     const scanParamFromRoot = this.$root.$mp.query.q
-    this.qrcode = scanParamFromRoot ? decodeURIComponent(scanParamFromRoot) : ''
+    if (scanParamFromRoot) {
+      this.qrCode = decodeURIComponent(scanParamFromRoot)
+    }
   }
 }
 </script>
@@ -39,5 +63,11 @@ export default {
     padding: 10px;
     background-color: mediumseagreen;
     color: white;
+  }
+  .cert-detail {
+    margin-top: 16px;
+  }
+  .cert-detail-item {
+    margin-left: 16px;
   }
 </style>
