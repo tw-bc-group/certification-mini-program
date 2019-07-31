@@ -14,6 +14,7 @@
 <script>
 
 import { qrCodeReg } from '../../utils/constants'
+import { formatTime } from '../../utils'
 
 export default {
   data () {
@@ -44,7 +45,12 @@ export default {
       if (!qrCodeReg.test(newQrCode)) return
       const certId = newQrCode.replace(qrCodeReg, '')
       this.$http.get(`/certifications/${certId}`).then((res) => {
-        this.certDetail = res
+        const { issueDate, expireDate, ...others } = res
+        this.certDetail = {
+          ...others,
+          issueDate: formatTime(issueDate),
+          expireDate: formatTime(expireDate)
+        }
       }).catch((e) => {
         console.log(e)
       })

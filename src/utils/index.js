@@ -4,6 +4,10 @@ function formatNumber (n) {
 }
 
 export function formatTime (date) {
+  if (typeof date === 'string') {
+    date = new Date(Number(date))
+  }
+
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
