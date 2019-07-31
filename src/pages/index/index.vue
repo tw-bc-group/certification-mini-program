@@ -2,9 +2,12 @@
   <div>
     <div class='scan' @click='scan'>Scan Certificate</div>
     <div>qrCode: {{ qrCode }}</div>
-    <ul v-show="isShowCertDetail" class='cert-detail'>Certificate Detail
+    <ul v-if="isShowCertDetail" class='cert-detail'>Certificate Detail
       <li class='cert-detail-item'>Subject: {{certDetail.subject}}</li>
       <li class='cert-detail-item'>Name:{{certDetail.lastName}}{{certDetail.firstName}}</li>
+      <li class='cert-detail-item'>Type: {{certDetail.additionalData.type}}</li>
+      <li class='cert-detail-item'>Partner: {{certDetail.additionalData.partner}}</li>
+      <li class='cert-detail-item'>Issuer: {{certDetail.additionalData.issuer}}</li>
       <li class='cert-detail-item'>Issue Date:{{certDetail.issueDate}}</li>
       <li class='cert-detail-item'>Expire Date: {{certDetail.expireDate}}</li>
     </ul>
