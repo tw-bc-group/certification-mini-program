@@ -4,11 +4,6 @@
     <button class='user-info-btn' open-type="getUserInfo" @getuserinfo='getUserInfo'>user-info-login</button>
     <div class='login' @click='login'>getCode</div>
     <div class='text'>{{ text }}</div>
-    <view class="btn-area">
-      <navigator url="../../redirect/redirect/redirect?title=redirect" open-type="redirect" hover-class="other-navigator-hover">在当前页打开</navigator>
-      <navigator url="/page/index/index" open-type="switchTab" hover-class="other-navigator-hover">切换 Tab</navigator>
-      <navigator target="miniProgram" open-type="navigate" app-id="" path="" extra-data="" version="release">打开绑定的小程序</navigator>
-    </view>
   </div>
 </template>
 
