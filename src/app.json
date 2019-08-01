@@ -1,8 +1,18 @@
 {
   "pages": [
     "pages/index/main",
-    "pages/details/main"
+    "pages/details/main",
+    "pages/me/main"
   ],
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/main",
+      "text": "主页"
+    }, {
+      "pagePath": "pages/me/main",
+      "text": "我的"
+    }]
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
