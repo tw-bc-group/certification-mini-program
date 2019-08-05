@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="top-bar-wrapper">
+      <img class="top-bar-logo" :src="logoImgPath" />
+      <img class="top-bar-scan" :src="scanImgPath" @click="scan" />
+    </div>
     <div class='scan' @click='scan'>Scan Certificate</div>
     <button class='user-info-btn' open-type="getUserInfo" @getuserinfo='getUserInfo'>user-info-login</button>
     <div class='login' @click='login'>getCode</div>
@@ -8,10 +12,14 @@
 </template>
 
 <script>
+import logoImgPath from '../../../static/images/logo.png'
+import scanImgPath from '../../../static/images/scan.png'
 
 export default {
   data: {
-    text: ''
+    text: '',
+    logoImgPath,
+    scanImgPath
   },
   methods: {
     scan () {
@@ -54,7 +62,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  $top-bar-height: 44px;
+
   .scan {
     display: flex;
     padding: 10px;
@@ -75,5 +85,16 @@ export default {
   }
   .text {
     word-break: break-word;
+  }
+  .top-bar-wrapper {
+    height: $top-bar-height;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 11px 0 18px;
+
+    .top-bar-logo, .top-bar-scan {
+      height: $top-bar-height;
+      width: $top-bar-height;
+    }
   }
 </style>
