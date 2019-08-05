@@ -5,11 +5,16 @@
     "pages/me/main"
   ],
   "tabBar": {
+    "selectedColor": "#f25248",
     "list": [{
       "pagePath": "pages/index/main",
+      "iconPath": "static/tabs/home.png",
+      "selectedIconPath": "static/tabs/home-active.png",
       "text": "主页"
     }, {
       "pagePath": "pages/me/main",
+      "iconPath": "static/tabs/mine.png",
+      "selectedIconPath": "static/tabs/mine-active.png",
       "text": "我的"
     }]
   },
