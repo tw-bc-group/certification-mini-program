@@ -12,24 +12,35 @@
         <li class='cert-detail-item'>Expire Date: {{certDetail.expireDate}}</li>
       </ul>
     </div>
+    <div v-if="isShowCertDetail" class="collect-button">
+      <cac-button :click="isAdded ? goToMyCertificates : addToMyCertificates" :text="detailButtonText" />
+    </div>
   </div>
 </template>
 
 <script>
+import CacButton from '../../components/cac-button'
 
 import { qrCodeReg } from '../../utils/constants'
 import { formatTime } from '../../utils'
 
 export default {
+  components: {
+    CacButton
+  },
   data () {
     return {
       qrCode: '',
-      certDetail: {}
+      certDetail: {},
+      isAdded: false
     }
   },
   computed: {
     isShowCertDetail () {
       return Object.keys(this.certDetail).length !== 0
+    },
+    detailButtonText () {
+      return this.isAdded ? '前往我的证书查看' : '添加到我的证书'
     }
   },
   watch: {
@@ -49,6 +60,22 @@ export default {
       })
     }
   },
+  methods: {
+    addToMyCertificates () {
+      wx.showToast({
+        title: '已添加',
+        icon: 'success',
+        duration: 1000,
+        mask: true,
+        success: res => {
+          this.isAdded = true
+        }
+      })
+    },
+    goToMyCertificates () {
+      wx.navigateTo({ url: '../my-certificates/main' })
+    }
+  },
   beforeMount () {
     this.qrCode = this.$root.$mp.query.qrCode
   }
@@ -63,6 +90,7 @@ export default {
     padding: 0 44px;
 
     .simple-certificate-wrapper {
+      width: 100%;
       height: 365px;
       margin-top: 92px;
 
@@ -70,6 +98,11 @@ export default {
       box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.2);
       background-color: #f39f54;
       color: white;
+    }
+
+    .collect-button {
+      width: 100%;
+      margin-top: 61px;
     }
   }
 </style>
