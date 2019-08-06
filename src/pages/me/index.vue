@@ -12,7 +12,7 @@
         <p class="user-info-nickname">{{ userInfo.nickName }}</p>
       </div>
     </template>
-    <div class="form-item">
+    <div class="form-item" @click="goToMyCertificates">
       <p>我的证书</p>
       <img class="form-item-arrow-icon" :src="arrowImgPath"/>
     </div>
@@ -40,6 +40,9 @@ export default {
 
       this.userInfo = e.target.userInfo
       wx.setStorageSync('userInfo', this.userInfo)
+    },
+    goToMyCertificates () {
+      wx.navigateTo({ url: '../my-certificates/main' })
     }
   },
   onLoad () {
