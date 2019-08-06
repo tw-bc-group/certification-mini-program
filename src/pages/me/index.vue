@@ -30,7 +30,7 @@ export default {
     arrowImgPath
   },
   computed: {
-    isLogin: function () {
+    isLogin () {
       return Object.keys(this.userInfo).length > 0
     }
   },

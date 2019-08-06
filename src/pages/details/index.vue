@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- <p>qrCode: {{ qrCode }}</p> -->
-    <div v-if="isShowCertDetail" class="simple-certificate-wrapper">
+    <cac-simple-certificate v-if="isShowCertDetail">
       <ul>Certificate Detail
         <li class='cert-detail-item'>Subject: {{certDetail.subject}}</li>
         <li class='cert-detail-item'>Name:{{certDetail.lastName}}{{certDetail.firstName}}</li>
@@ -11,7 +11,7 @@
         <li class='cert-detail-item'>Issue Date:{{certDetail.issueDate}}</li>
         <li class='cert-detail-item'>Expire Date: {{certDetail.expireDate}}</li>
       </ul>
-    </div>
+    </cac-simple-certificate>
     <div v-if="isShowCertDetail" class="collect-button">
       <cac-button :click="isAdded ? goToMyCertificates : addToMyCertificates" :text="detailButtonText" />
     </div>
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import CacSimpleCertificate from '../../components/cac-simple-certificate'
 import CacButton from '../../components/cac-button'
 
 import { qrCodeReg } from '../../utils/constants'
@@ -26,6 +27,7 @@ import { formatTime } from '../../utils'
 
 export default {
   components: {
+    CacSimpleCertificate,
     CacButton
   },
   data () {
@@ -87,18 +89,7 @@ export default {
     margin-left: 16px;
   }
   .container {
-    padding: 0 44px;
-
-    .simple-certificate-wrapper {
-      width: 100%;
-      height: 365px;
-      margin-top: 92px;
-
-      border-radius: 6.3px;
-      box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.2);
-      background-color: #f39f54;
-      color: white;
-    }
+    padding: 92px 44px 0 44px;
 
     .collect-button {
       width: 100%;
