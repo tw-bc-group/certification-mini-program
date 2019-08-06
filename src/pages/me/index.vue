@@ -53,23 +53,27 @@ export default {
   $form-height: 44px;
 
   .container {
-    width: 100%;
     padding: 0 23px;
 
     .user-info-wrapper{
       width: 100%;
       height: 100px;
-      box-sizing: border-box;
-      font-size: 14px;
+      padding: 20px 23px;
 
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      padding: 20px 23px;
+
+      color: white;
+      font-size: 14px;
+      border-radius: 6.3px;
+      box-sizing: border-box;
+      background-color: #f39f54;
 
       .user-info-avatar {
         width: $avatar-size;
         height: $avatar-size;
+
         border: 0;
         border-radius: 50%;
       }
@@ -81,18 +85,18 @@ export default {
     .form-item {
       width: 100%;
       height: $form-height;
-      box-sizing: border-box;
+      margin-top: 24px;
 
       display: flex;
       align-items: center;
       justify-content: space-between;
       font-size: 14px;
-      margin-top: 24px;
 
       &-arrow-icon {
-        position: relative;
         width: $form-height;
         height: $form-height;
+
+        position: relative;
         right: -17px;
       }
     }

@@ -88,9 +88,10 @@ export default {
   }
   .top-bar-wrapper {
     height: $top-bar-height;
+    padding: 0 11px 0 18px;
+
     display: flex;
     justify-content: space-between;
-    padding: 0 11px 0 18px;
 
     .top-bar-logo, .top-bar-scan {
       height: $top-bar-height;
