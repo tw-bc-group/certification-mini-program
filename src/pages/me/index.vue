@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import userDefaultImgPath from '../../../static/images/user-default.png'
-import arrowImgPath from '../../../static/images/right-arrow.png'
+import userDefaultImgPath from '@/assets/images/user-default.png'
+import arrowImgPath from '@/assets/images/right-arrow.png'
 
 export default {
   data: {
@@ -77,7 +77,7 @@ export default {
       font-size: 14px;
       border-radius: 6px;
       box-sizing: border-box;
-      background-image: url('~@/assets/images/user-profile-bg.jpg');
+      background-image: url('~@/assets/images/user-profile-bg.png') ,linear-gradient(284deg, #f7a658, #eb4e44);
       background-repeat: no-repeat;
       background-size: $user-info-wrapper-width $user-info-wrapper-height;
 
