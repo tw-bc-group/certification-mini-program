@@ -28,10 +28,12 @@ import userDefaultImgPath from '@/assets/images/user-default.png'
 import arrowImgPath from '@/assets/images/right-arrow.png'
 
 export default {
-  data: {
-    userInfo: wx.getStorageSync('userInfo') || {},
-    userDefaultImgPath,
-    arrowImgPath
+  data () {
+    return {
+      userInfo: wx.getStorageSync('userInfo') || {},
+      userDefaultImgPath,
+      arrowImgPath
+    }
   },
   computed: {
     isLogin () {

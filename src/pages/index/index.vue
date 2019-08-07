@@ -20,10 +20,12 @@ import logoImgPath from '../../../static/images/logo.png'
 import scanImgPath from '../../../static/images/scan.png'
 
 export default {
-  data: {
-    text: '',
-    logoImgPath,
-    scanImgPath
+  data () {
+    return {
+      text: '',
+      logoImgPath,
+      scanImgPath
+    }
   },
   methods: {
     scan () {
