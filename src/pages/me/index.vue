@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <template v-if="!isLogin">
+    <div class="user-info-wrapper">
+      <open-data class="user-info-avatar" type="userAvatarUrl"></open-data>
+      <open-data class="user-info-nickname" type="userNickName"></open-data>
+    </div>
+    <!-- <template v-if="!isLogin">
       <button class='user-info-wrapper' open-type="getUserInfo" @getuserinfo='getUserInfo'>
         <img class="user-info-avatar" :src="userDefaultImgPath" />
         <p class="user-info-nickname">请点击登录</p>
@@ -11,7 +15,7 @@
         <img class="user-info-avatar" :src="userInfo.avatarUrl" />
         <p class="user-info-nickname">{{ userInfo.nickName }}</p>
       </div>
-    </template>
+    </template> -->
     <div class="form-item" @click="goToMyCertificates">
       <p>我的证书</p>
       <img class="form-item-arrow-icon" :src="arrowImgPath"/>
@@ -54,13 +58,15 @@ export default {
 <style lang="scss" scoped>
   $avatar-size: 60px;
   $form-height: 44px;
+  $user-info-wrapper-width: 329px;
+  $user-info-wrapper-height: 100px;
 
   .container {
     padding: 0 23px;
 
     .user-info-wrapper{
       width: 100%;
-      height: 100px;
+      height: $user-info-wrapper-height;
       padding: 20px 23px;
 
       display: flex;
@@ -69,16 +75,19 @@ export default {
 
       color: white;
       font-size: 14px;
-      border-radius: 6.3px;
+      border-radius: 6px;
       box-sizing: border-box;
-      background-color: #f39f54;
+      background-image: url('~@/assets/images/user-profile-bg.jpg');
+      background-repeat: no-repeat;
+      background-size: $user-info-wrapper-width $user-info-wrapper-height;
 
       .user-info-avatar {
         width: $avatar-size;
         height: $avatar-size;
-
+        
         border: 0;
         border-radius: 50%;
+        overflow: hidden;
       }
       .user-info-nickname {
         margin-left: 16px;
