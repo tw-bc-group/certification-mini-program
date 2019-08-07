@@ -6,14 +6,21 @@
     </div>
     <div class='scan' @click='scan'>Scan Certificate</div>
     <button class='user-info-btn' open-type="getUserInfo" @getuserinfo='getUserInfo'>user-info-login</button>
-    <div class='login' @click='login'>getCode</div>
+    <div class='login' @click='login'>wechat login</div>
+    <div class='login' @click='addCert'>addCert</div>
+    <div class='login' @click='removeCert'>removeCert</div>
+    <div class='login' @click='getAllCerts'>getAllCerts</div>
+    <div class='login' @click='isMyCert'>isMyCert</div>
     <div class='text'>{{ text }}</div>
   </div>
 </template>
 
 <script>
+import model from '../../model'
 import logoImgPath from '../../../static/images/logo.png'
 import scanImgPath from '../../../static/images/scan.png'
+
+const User = new model.User()
 
 export default {
   data: {
@@ -35,18 +42,25 @@ export default {
     jumpToCertDetailsPage (qrCode) {
       wx.navigateTo({'url': `/pages/details/main?qrCode=${qrCode}`})
     },
-    login () {
-      const self = this
-      wx.login({
-        success (res) {
-          if (res.code) {
-            console.debug(res)
-            self.text = JSON.stringify(res)
-          } else {
-            console.log('登录失败！' + res.errMsg)
-          }
-        }
-      })
+    async login () {
+      const user = await User.login()
+      console.log(user)
+    },
+    async addCert () {
+      const user = await User.addCert('11111')
+      console.log(user)
+    },
+    async isMyCert () {
+      const isMyCert = await User.isMyCert('11111')
+      console.log(isMyCert)
+    },
+    async getAllCerts () {
+      const certs = await User.getAllCerts()
+      console.log(certs)
+    },
+    async removeCert () {
+      const user = await User.removeCert('11111')
+      console.log(user)
     },
     getUserInfo (e) {
       console.debug(e.target)
