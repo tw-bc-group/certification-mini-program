@@ -1,5 +1,10 @@
 <script>
+import model from './model'
+
 export default {
+  onLaunch () {
+    model.User.login()
+  },
   created () {},
   log () {}
 }
