@@ -80,6 +80,10 @@ export default {
   },
   beforeMount () {
     this.qrCode = this.$root.$mp.query.qrCode
+  },
+  onLoad () {
+    // reset data when load page because mpvue will have cache when enter this page again
+    Object.assign(this.$data, this.$options.data())
   }
 }
 </script>
