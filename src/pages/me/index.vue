@@ -85,7 +85,7 @@ export default {
         width: $avatar-size;
         height: $avatar-size;
         
-        border: 0;
+        border: 1px solid #fff;
         border-radius: 50%;
         overflow: hidden;
       }
