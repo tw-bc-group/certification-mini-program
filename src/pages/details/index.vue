@@ -3,7 +3,7 @@
     <cac-simple-certificate v-if="isShowCertDetail">
     </cac-simple-certificate>
     <div v-if="isShowCertDetail" class="collect-button">
-      <cac-button :click="isAdded ? goToMyCertificates : addToMyCertificates" :text="detailButtonText" />
+      <cac-button :click="isAdded ? goToMyCert : addToMyCert" :text="detailButtonText" />
     </div>
   </div>
 </template>
@@ -13,6 +13,7 @@ import CacSimpleCertificate from '../../components/cac-simple-certificate'
 import CacButton from '../../components/cac-button'
 import api from '../../api'
 
+import model from '../../model'
 import { qrCodeReg } from '../../utils/constants'
 import { formatTime } from '../../utils'
 
@@ -24,6 +25,7 @@ export default {
   data () {
     return {
       qrCode: '',
+      certId: '',
       certDetail: {},
       isAdded: false
     }
@@ -40,21 +42,26 @@ export default {
     qrCode (newQrCode) {
       console.debug(newQrCode)
       if (!qrCodeReg.test(newQrCode)) return
-      const certId = newQrCode.replace(qrCodeReg, '')
-      api.getCertificationInfo().then((res) => {
-        const { issueDate, expireDate, ...others } = res
-        this.certDetail = {
-          ...others,
-          issueDate: formatTime(issueDate),
-          expireDate: formatTime(expireDate)
-        }
-      }).catch((e) => {
-        console.log(e)
-      })
+      this.certId = newQrCode.replace(qrCodeReg, '')
+
+      Promise.all([this.getCertDetail(), this.checkIsMyCert()])
     }
   },
   methods: {
-    addToMyCertificates () {
+    async getCertDetail () {
+      const { issueDate, expireDate, ...others } = await api.getCertificationInfo(this.certId)
+      this.certDetail = {
+        ...others,
+        issueDate: formatTime(issueDate),
+        expireDate: formatTime(expireDate)
+      }
+    },
+    async checkIsMyCert () {
+      const isMyCert = await model.User.isMyCert(this.certId)
+      if (isMyCert) this.isAdded = true
+    },
+    async addToMyCert () {
+      await model.User.addCert(this.certId)
       wx.showToast({
         title: '已添加',
         icon: 'success',
@@ -65,7 +72,7 @@ export default {
         }
       })
     },
-    goToMyCertificates () {
+    goToMyCert () {
       wx.navigateTo({ url: '../my-certificates/main' })
     }
   },
