@@ -3,20 +3,20 @@
     <div class="top-bar-wrapper">
       <img class="top-bar-delete" :src="deleteImgPath">
     </div>
-    <scroll-view scroll-x scroll-with-animation @scroll="onScroll" :scroll-into-view="scrollViewIndex" class="certificate-gallery-wrapper">
-      <div id="a0" class="certificate-gallery-item">
+    <swiper class="certificate-gallery-wrapper" previous-margin="32px" next-margin="32px">
+      <swiper-item class="certificate-gallery-item" @click="test(1)">
         <cac-simple-certificate>
         </cac-simple-certificate>
-      </div>
-      <div id="a1" class="certificate-gallery-item">
+      </swiper-item>
+      <swiper-item class="certificate-gallery-item">
         <cac-simple-certificate>
         </cac-simple-certificate>
-      </div>
-      <div id="a2" class="certificate-gallery-item">
+      </swiper-item>
+      <swiper-item class="certificate-gallery-item">
         <cac-simple-certificate>
         </cac-simple-certificate>
-      </div>
-    </scroll-view>
+      </swiper-item>
+    </swiper>
   </div>
 </template>
 
@@ -40,8 +40,8 @@ export default {
     }
   },
   methods: {
-    onScroll (e) {
-      console.log(e.target)
+    test (e) {
+      console.log('click', e)
     }
   }
 }
@@ -70,11 +70,9 @@ export default {
     white-space: nowrap;
   }
   .certificate-gallery-item {
-    width: 100%;
-    height: 365px;
-    padding: 0 44px;
-    box-sizing: border-box;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
 
