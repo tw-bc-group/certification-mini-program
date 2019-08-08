@@ -4,18 +4,12 @@
       <img class="top-bar-delete" :src="deleteImgPath">
     </div>
     <swiper class="certificate-gallery-wrapper" previous-margin="32px" next-margin="32px">
-      <swiper-item class="certificate-gallery-item" @click="test(1)">
-        <cac-simple-certificate>
-        </cac-simple-certificate>
-      </swiper-item>
-      <swiper-item class="certificate-gallery-item">
-        <cac-simple-certificate>
-        </cac-simple-certificate>
-      </swiper-item>
-      <swiper-item class="certificate-gallery-item">
-        <cac-simple-certificate>
-        </cac-simple-certificate>
-      </swiper-item>
+      <block v-for="cert in certificateList" :key="cert">
+        <swiper-item class="certificate-gallery-item" @click="test(cert)">
+          <cac-simple-certificate>
+          </cac-simple-certificate>
+        </swiper-item>
+      </block>
     </swiper>
   </div>
 </template>
@@ -31,12 +25,7 @@ export default {
   data () {
     return {
       deleteImgPath,
-      scrollIndex: 0
-    }
-  },
-  computed: {
-    scrollViewIndex () {
-      return `a${this.scrollIndex}`
+      certificateList: ['cert1', 'cert2', 'cert3']
     }
   },
   methods: {
