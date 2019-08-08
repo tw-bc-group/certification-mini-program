@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <cac-simple-certificate v-if="isShowCertDetail">
+    <cac-simple-certificate>
     </cac-simple-certificate>
-    <div v-if="isShowCertDetail" class="collect-button">
+    <div class="collect-button">
       <cac-button :click="isAdded ? goToMyCert : addToMyCert" :text="detailButtonText" />
     </div>
   </div>
@@ -51,7 +51,7 @@ export default {
       if (!qrCodeReg.test(newQrCode)) return
       this.certId = newQrCode.replace(qrCodeReg, '')
 
-      Promise.all([this.getCertDetail(), this.checkIsMyCert()])
+      Promise.all([this.checkIsMyCert()])
     }
   },
   methods: {
