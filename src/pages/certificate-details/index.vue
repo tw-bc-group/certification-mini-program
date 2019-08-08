@@ -27,13 +27,33 @@ export default {
         url: self.src,
         success (res) {
           if (res.statusCode === 200) {
-            wx.saveImageToPhotosAlbum({
-              filePath: res.tempFilePath,
+            console.log('start authorize')
+            const downloadPath = res.tempFilePath
+            wx.authorize({
+              scope: 'scope.writePhotosAlbum',
               success (res) {
-                self.downloadSuccess()
+                console.log('authorize success:', downloadPath)
+                wx.saveImageToPhotosAlbum({
+                  filePath: downloadPath,
+                  success (res) {
+                    self.downloadSuccess()
+                  },
+                  fail (res) {
+                    console.log(res)
+                    wx.showToast({
+                      title: res.errMsg,
+                      icon: 'success',
+                      duration: 2000
+                    })
+                  }
+                })
               },
               fail (res) {
-                self.downloadFailed()
+                wx.showToast({
+                  title: 'authorize failed',
+                  icon: 'success',
+                  duration: 2000
+                })
               }
             })
           } else {
@@ -41,7 +61,11 @@ export default {
           }
         },
         fail (res) {
-          self.downloadFailed()
+          wx.showToast({
+            title: 'downloadFile failed',
+            icon: 'success',
+            duration: 2000
+          })
         }
       })
     },

@@ -45,7 +45,7 @@ export default {
     goToDownloadPage (e) {
       console.log('click', e)
       wx.navigateTo({
-        'url': `/pages/certificate-details/main?src=https://lc-gvpjrw4u.cn-e1.lcfile.com/02e7d55bc2a207b8e916/c9f68369053f14577cd5.svg`
+        'url': `/pages/certificate-details/main?src=https://lc-gvpjrw4u.cn-e1.lcfile.com/8c94f04bc4f4397ce9b7/Untitled.png`
       })
     },
     showDeleteModal () {
