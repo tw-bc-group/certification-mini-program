@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import cacSimpleCertificate from '../../components/cac-simple-certificate'
-import deleteImgPath from '../../../static/images/delete.png'
+import cacSimpleCertificate from '@/components/cac-simple-certificate'
+import deleteImgPath from '@/assets/images/delete.png'
 
 export default {
   components: {

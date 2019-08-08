@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import CacSimpleCertificate from '../../components/cac-simple-certificate'
-import CacButton from '../../components/cac-button'
-import api from '../../api'
+import CacSimpleCertificate from '@/components/cac-simple-certificate'
+import CacButton from '@/components/cac-button'
+import api from '@/api'
 
-import model from '../../model'
-import { qrCodeReg } from '../../utils/constants'
-import { formatTime } from '../../utils'
+import model from '@/model'
+import { qrCodeReg } from '@/utils/constants'
+import { formatTime } from '@/utils'
 
 export default {
   components: {

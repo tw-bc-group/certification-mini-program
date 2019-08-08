@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import model from '../../model'
-import logoImgPath from '../../../static/images/logo.png'
-import scanImgPath from '../../../static/images/scan.png'
+import model from '@/model'
+import logoImgPath from '@/assets/images/logo.png'
+import scanImgPath from '@/assets/images/scan.png'
 
 export default {
   data () {

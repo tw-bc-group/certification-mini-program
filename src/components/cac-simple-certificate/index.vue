@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import verifiedImgPath from '../../assets/images/verified.png'
+import verifiedImgPath from '@/assets/images/verified.png'
 
 export default {
   data () {
