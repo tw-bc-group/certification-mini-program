@@ -4,25 +4,16 @@
       <img class="top-bar-logo" :src="logoImgPath" />
       <img class="top-bar-scan" :src="scanImgPath" @click="scan" />
     </div>
-    <div class='scan' @click='scan'>Scan Certificate</div>
-    <button class='user-info-btn' open-type="getUserInfo" @getuserinfo='getUserInfo'>user-info-login</button>
-    <div class='login' @click='addCert'>addCert</div>
-    <div class='login' @click='removeCert'>removeCert</div>
-    <div class='login' @click='getAllCerts'>getAllCerts</div>
-    <div class='login' @click='isMyCert'>isMyCert</div>
-    <div class='text'>{{ text }}</div>
   </div>
 </template>
 
 <script>
-import model from '@/model'
 import logoImgPath from '@/assets/images/logo.png'
 import scanImgPath from '@/assets/images/scan.png'
 
 export default {
   data () {
     return {
-      text: '',
       logoImgPath,
       scanImgPath
     }
@@ -46,26 +37,6 @@ export default {
     },
     jumpToCertDetailsPage (qrCode) {
       wx.navigateTo({'url': `/pages/details/main?qrCode=${qrCode}`})
-    },
-    async addCert () {
-      const user = await model.User.addCert('11111')
-      console.log(user)
-    },
-    async isMyCert () {
-      const isMyCert = await model.User.isMyCert('11111')
-      console.log(isMyCert)
-    },
-    async getAllCerts () {
-      const certs = await model.User.getAllCerts()
-      console.log(certs)
-    },
-    async removeCert () {
-      const user = await model.User.removeCert('11111')
-      console.log(user)
-    },
-    getUserInfo (e) {
-      console.debug(e.target)
-      this.text = JSON.stringify(e.target)
     }
   }
 }
