@@ -5,7 +5,7 @@
     </div>
     <swiper v-show="hasCertificates" class="certificate-gallery-wrapper" previous-margin="32px" next-margin="32px" @change="onSwiperChange" :current="current">
       <block v-for="cert in certificateList" :key="cert">
-        <swiper-item class="certificate-gallery-item" @click="test(cert)">
+        <swiper-item class="certificate-gallery-item" @click="goToDownloadPage(cert)">
           <cac-simple-certificate>
           </cac-simple-certificate>
         </swiper-item>
@@ -42,8 +42,11 @@ export default {
     }
   },
   methods: {
-    test (e) {
+    goToDownloadPage (e) {
       console.log('click', e)
+      wx.navigateTo({
+        'url': `/pages/certificate-details/main?src=http://lc-uukre5ss.cn-n1.lcfile.com/c9f68369053f14577cd5.svg`
+      })
     },
     showDeleteModal () {
       wx.showModal({

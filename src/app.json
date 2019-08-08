@@ -3,7 +3,8 @@
     "pages/index/main",
     "pages/details/main",
     "pages/me/main",
-    "pages/my-certificates/main"
+    "pages/my-certificates/main",
+    "pages/certificate-details/main"
   ],
   "tabBar": {
     "selectedColor": "#f25248",
