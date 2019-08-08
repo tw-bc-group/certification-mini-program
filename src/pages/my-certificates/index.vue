@@ -65,8 +65,8 @@ export default {
   }
   .certificate-gallery-wrapper {
     width: 100%;
-    height: 365px;
-    margin-top: 48px;
+    height: 375px;
+    padding-top: 48px;
     white-space: nowrap;
   }
   .certificate-gallery-item {
