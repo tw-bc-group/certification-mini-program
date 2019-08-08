@@ -86,13 +86,17 @@ export default {
       .user-info-avatar {
         width: $avatar-size;
         height: $avatar-size;
-        
+
         border: 1px solid #fff;
         border-radius: 50%;
         overflow: hidden;
       }
       .user-info-nickname {
         margin-left: 16px;
+        width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
 
