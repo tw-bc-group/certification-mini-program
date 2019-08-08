@@ -14,8 +14,8 @@
       "text": "主页"
     }, {
       "pagePath": "pages/me/main",
-      "iconPath": "static/tabs/mine.png",
-      "selectedIconPath": "static/tabs/mine-active.png",
+      "iconPath": "static/tabs/me.png",
+      "selectedIconPath": "static/tabs/me-active.png",
       "text": "我的"
     }]
   },

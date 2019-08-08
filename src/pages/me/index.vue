@@ -35,6 +35,9 @@ export default {
       arrowImgPath
     }
   },
+  onLoad () {
+    wx.setNavigationBarTitle({ title: '我的' })
+  },
   computed: {
     isLogin () {
       return Object.keys(this.userInfo).length > 0
@@ -50,9 +53,6 @@ export default {
     goToMyCertificates () {
       wx.navigateTo({ url: '../my-certificates/main' })
     }
-  },
-  onLoad () {
-    wx.setNavigationBarTitle({ title: '我的' })
   }
 }
 </script>

@@ -30,6 +30,13 @@ export default {
       isAdded: false
     }
   },
+  onLoad () {
+    // reset data when load page because mpvue will have cache when enter this page again
+    Object.assign(this.$data, this.$options.data())
+  },
+  beforeMount () {
+    this.qrCode = this.$root.$mp.query.qrCode
+  },
   computed: {
     isShowCertDetail () {
       return Object.keys(this.certDetail).length !== 0
@@ -75,13 +82,6 @@ export default {
     goToMyCert () {
       wx.navigateTo({ url: '../my-certificates/main' })
     }
-  },
-  beforeMount () {
-    this.qrCode = this.$root.$mp.query.qrCode
-  },
-  onLoad () {
-    // reset data when load page because mpvue will have cache when enter this page again
-    Object.assign(this.$data, this.$options.data())
   }
 }
 </script>

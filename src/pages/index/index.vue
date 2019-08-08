@@ -27,6 +27,12 @@ export default {
       scanImgPath
     }
   },
+  onReady () {
+    const scanParamFromRoot = this.$root.$mp.query.q
+    if (scanParamFromRoot) {
+      this.jumpToCertDetailsPage(scanParamFromRoot)
+    }
+  },
   methods: {
     scan () {
       wx.scanCode({
@@ -60,12 +66,6 @@ export default {
     getUserInfo (e) {
       console.debug(e.target)
       this.text = JSON.stringify(e.target)
-    }
-  },
-  onReady () {
-    const scanParamFromRoot = this.$root.$mp.query.q
-    if (scanParamFromRoot) {
-      this.jumpToCertDetailsPage(scanParamFromRoot)
     }
   }
 }
