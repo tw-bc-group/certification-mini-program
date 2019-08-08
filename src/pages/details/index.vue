@@ -54,6 +54,10 @@ export default {
       Promise.all([this.checkIsMyCert()])
     }
   },
+  onShow () {
+    console.log('onShow:', this.certId)
+    this.checkIsMyCert()
+  },
   methods: {
     async getCertDetail () {
       const { issueDate, expireDate, ...others } = await api.getCertificationInfo(this.certId)
@@ -65,7 +69,8 @@ export default {
     },
     async checkIsMyCert () {
       const isMyCert = await model.User.isMyCert(this.certId)
-      if (isMyCert) this.isAdded = true
+      console.log('onShow:', this.certId)
+      this.isAdded = isMyCert
     },
     async addToMyCert () {
       await model.User.addCert(this.certId)
