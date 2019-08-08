@@ -70,12 +70,15 @@ export default {
     async getAllMyCerts () {
       const certs = await model.User.getAllCerts()
       console.log(certs)
-      this.certificateList = ['cert1', 'cert2', 'cert3']
+      this.certificateList = ['cert1', 'cert2'].concat(certs)
+      console.log(this.certificateList)
     },
-    deleteCurrentCert () {
+    async deleteCurrentCert () {
       const deleteIndex = this.current
       // if delete the last item, make the current second last one
       if (deleteIndex === this.certificateList.length - 1) this.current--
+
+      await model.User.removeCert(this.certificateList[deleteIndex])
       this.certificateList = this.certificateList.filter(cert => cert !== this.certificateList[deleteIndex])
     },
     onSwiperChange (e) {
