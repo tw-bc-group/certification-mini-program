@@ -3,8 +3,8 @@
     <div class="top-bar-wrapper">
       <img class="top-bar-delete" :src="deleteImgPath" @click="showDeleteModal">
     </div>
-    <swiper v-show="hasCertificates" class="certificate-gallery-wrapper" previous-margin="32px" next-margin="32px" @change="onSwiperChange" :current="current">
-      <block v-for="cert in certificateList" :key="cert">
+    <swiper v-if="hasCertificates" class="certificate-gallery-wrapper" previous-margin="32px" next-margin="32px" @change="onSwiperChange" :current="current">
+      <block v-for="cert in certificateList" :key="getItemKey(cert)">
         <swiper-item class="certificate-gallery-item" @click="goToDownloadPage(cert)">
           <cac-simple-certificate :certId="cert">
           </cac-simple-certificate>
@@ -81,6 +81,10 @@ export default {
     },
     onSwiperChange (e) {
       this.current = e.target.current
+    },
+    getItemKey (certId) {
+      console.log('getItemKey', certId)
+      certId.slice(2, -1)
     }
   }
 }
