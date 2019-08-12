@@ -8,8 +8,10 @@ export async function fetchPhotoUrl (certId) {
   query.equalTo(INDEX, certId)
   query.include(['png', 'svg'])
   const result = await query.find()
-  result[0].get('png').get('url')
-  return result[0].get('png').get('url')
+  if (result.length > 0) {
+    return result[0].get('png').get('url')
+  }
+  return ''
 }
 
 export default {
