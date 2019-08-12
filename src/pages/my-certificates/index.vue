@@ -6,7 +6,7 @@
     <swiper v-show="hasCertificates" class="certificate-gallery-wrapper" previous-margin="32px" next-margin="32px" @change="onSwiperChange" :current="current">
       <block v-for="cert in certificateList" :key="cert">
         <swiper-item class="certificate-gallery-item" @click="goToDownloadPage(cert)">
-          <cac-simple-certificate>
+          <cac-simple-certificate :certId="cert">
           </cac-simple-certificate>
         </swiper-item>
       </block>
@@ -68,9 +68,7 @@ export default {
       })
     },
     async getAllMyCerts () {
-      const certs = await model.User.getAllCerts()
-      console.log(certs)
-      this.certificateList = ['cert1', 'cert2'].concat(certs)
+      this.certificateList = await model.User.getAllCerts()
       console.log(this.certificateList)
     },
     async deleteCurrentCert () {

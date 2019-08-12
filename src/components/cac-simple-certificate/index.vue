@@ -1,18 +1,33 @@
 <template>
   <div class="simple-certificate-wrapper">
-    <image class="simple-certificate-image" src="http://lc-Uukre5Ss.cn-n1.lcfile.com/e7111efc529070a88cb6.png"/>
+    <image class="simple-certificate-image" :src="certUrl"/>
     <image class="simple-certificate-verified" :src="verifiedImgPath"/>
   </div>
 </template>
 
 <script>
 import verifiedImgPath from '@/assets/images/verified.png'
+import {fetchPhotoUrl} from '@/model/photo'
 
 export default {
   data () {
     return {
-      verifiedImgPath
+      verifiedImgPath,
+      certUrl: ''
     }
+  },
+  props: {
+    certId: String
+  },
+  watch: {
+    async certId (newCertId) {
+      console.log('watch:', this.certId)
+      this.certUrl = await fetchPhotoUrl(this.certId)
+    }
+  },
+  async beforeMount () {
+    console.log('beforeMount:', this.certId)
+    this.certUrl = await fetchPhotoUrl(this.certId)
   }
 }
 </script>

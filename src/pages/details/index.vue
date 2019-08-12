@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <cac-simple-certificate>
+    <cac-simple-certificate :certId="certId">
     </cac-simple-certificate>
     <div class="collect-button">
       <cac-button :click="isAdded ? goToMyCert : addToMyCert" :text="detailButtonText" />
@@ -50,7 +50,6 @@ export default {
       console.debug(newQrCode)
       if (!qrCodeReg.test(newQrCode)) return
       this.certId = newQrCode.replace(qrCodeReg, '')
-
       Promise.all([this.checkIsMyCert()])
     }
   },
