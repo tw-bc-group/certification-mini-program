@@ -1,16 +1,20 @@
 <template>
-  <div class="container">
-    <cac-simple-certificate :certId="certId">
-    </cac-simple-certificate>
-    <div class="collect-button">
-      <cac-button :click="isAdded ? goToMyCert : addToMyCert" :text="detailButtonText" />
+  <div>
+    <div  class="container" v-if="isValidQRCode">
+      <cac-simple-certificate :certId="certId">
+      </cac-simple-certificate>
+      <div class="collect-button">
+        <cac-button :click="isAdded ? goToMyCert : addToMyCert" :text="detailButtonText" />
+      </div>
     </div>
+    <CacErrorInfo v-else hint="未扫描到有效证书"></CacErrorInfo>
   </div>
 </template>
 
 <script>
 import CacSimpleCertificate from '@/components/cac-simple-certificate'
 import CacButton from '@/components/cac-button'
+import CacErrorInfo from '@/components/cac-error-info'
 import api from '@/api'
 
 import model from '@/model'
@@ -20,14 +24,16 @@ import { formatTime } from '@/utils'
 export default {
   components: {
     CacSimpleCertificate,
-    CacButton
+    CacButton,
+    CacErrorInfo
   },
   data () {
     return {
       qrCode: '',
       certId: '',
       certDetail: {},
-      isAdded: false
+      isAdded: false,
+      isValidQRCode: false
     }
   },
   onLoad () {
@@ -48,9 +54,11 @@ export default {
   watch: {
     qrCode (newQrCode) {
       console.debug(newQrCode)
-      if (!qrCodeReg.test(newQrCode)) return
-      this.certId = newQrCode.replace(qrCodeReg, '')
-      Promise.all([this.checkIsMyCert()])
+      if (qrCodeReg.test(newQrCode)) {
+        this.isValidQRCode = true
+        this.certId = newQrCode.replace(qrCodeReg, '')
+        Promise.all([this.checkIsMyCert()])
+      }
     }
   },
   onShow () {
