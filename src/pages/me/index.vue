@@ -4,18 +4,6 @@
       <open-data class="user-info-avatar" type="userAvatarUrl"></open-data>
       <open-data class="user-info-nickname" type="userNickName"></open-data>
     </div>
-    <!-- <template v-if="!isLogin">
-      <button class='user-info-wrapper' open-type="getUserInfo" @getuserinfo='getUserInfo'>
-        <img class="user-info-avatar" :src="userDefaultImgPath" />
-        <p class="user-info-nickname">请点击登录</p>
-      </button>
-    </template>
-    <template v-else>
-      <div class="user-info-wrapper">
-        <img class="user-info-avatar" :src="userInfo.avatarUrl" />
-        <p class="user-info-nickname">{{ userInfo.nickName }}</p>
-      </div>
-    </template> -->
     <div class="form-item" @click="goToMyCertificates">
       <p>我的证书</p>
       <img class="form-item-arrow-icon" :src="arrowImgPath"/>

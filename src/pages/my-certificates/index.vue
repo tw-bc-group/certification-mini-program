@@ -1,27 +1,32 @@
 <template>
   <div>
-    <div class="top-bar-wrapper">
-      <img class="top-bar-delete" :src="deleteImgPath" @click="showDeleteModal">
+    <div v-if="hasCertificates">
+      <div class="top-bar-wrapper" v-if="hasCertificates">
+        <img class="top-bar-delete" :src="deleteImgPath" @click="showDeleteModal">
+      </div>
+      <swiper class="certificate-gallery-wrapper" previous-margin="32px" next-margin="32px" @change="onSwiperChange" :current="current">
+        <block v-for="cert in certificateList" :key="getItemKey(cert)">
+          <swiper-item class="certificate-gallery-item" @click="goToDownloadPage(cert)">
+            <cac-simple-certificate :certId="cert">
+            </cac-simple-certificate>
+          </swiper-item>
+        </block>
+      </swiper>
     </div>
-    <swiper v-if="hasCertificates" class="certificate-gallery-wrapper" previous-margin="32px" next-margin="32px" @change="onSwiperChange" :current="current">
-      <block v-for="cert in certificateList" :key="getItemKey(cert)">
-        <swiper-item class="certificate-gallery-item" @click="goToDownloadPage(cert)">
-          <cac-simple-certificate :certId="cert">
-          </cac-simple-certificate>
-        </swiper-item>
-      </block>
-    </swiper>
+    <cacErrorInfo v-else hint="还没有添加证书"></cacErrorInfo>
   </div>
 </template>
 
 <script>
 import cacSimpleCertificate from '@/components/cac-simple-certificate'
+import cacErrorInfo from '@/components/cac-error-info'
 import model from '@/model'
 import deleteImgPath from '@/assets/images/delete.png'
 
 export default {
   components: {
-    cacSimpleCertificate
+    cacSimpleCertificate,
+    cacErrorInfo
   },
   data () {
     return {
