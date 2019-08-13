@@ -36,7 +36,7 @@ export default {
       })
     },
     jumpToCertDetailsPage (qrCode) {
-      wx.navigateTo({'url': `/pages/details/main?qrCode=${qrCode}`})
+      wx.navigateTo({'url': `/pages/scanning-info/main?qrCode=${qrCode}`})
     }
   }
 }
