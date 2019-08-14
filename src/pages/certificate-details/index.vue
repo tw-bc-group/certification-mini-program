@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <img class="full-edition-img" :src="src" />
+    <image class="full-edition-img" :src="src" mode="widthFix" />
     <div class="download-wrapper">
       <cac-button :text="btnText" :click="downloadAndSaveToPhotosAlbum"></cac-button>
     </div>
@@ -98,7 +98,6 @@ export default {
     padding-top: 24px;
     .full-edition-img {
       width: 100%;
-      height: 468.6px;
     }
     .download-wrapper {
       width: 100%;
