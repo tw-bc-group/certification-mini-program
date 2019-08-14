@@ -36,9 +36,9 @@ export default {
     }
   },
   onLoad () {
+    wx.setNavigationBarTitle({ title: '我的证书' })
     // reset data when load page because mpvue will have cache when enter this page again
     Object.assign(this.$data, this.$options.data())
-
     this.getAllMyCerts()
   },
   computed: {

@@ -20,6 +20,9 @@ export default {
       src: ''
     }
   },
+  onLoad () {
+    wx.setNavigationBarTitle({ title: '证书详情' })
+  },
   methods: {
     downloadAndSaveToPhotosAlbum () {
       const self = this
