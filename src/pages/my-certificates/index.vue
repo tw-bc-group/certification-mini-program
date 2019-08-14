@@ -22,6 +22,7 @@ import cacSimpleCertificate from '@/components/cac-simple-certificate'
 import cacErrorInfo from '@/components/cac-error-info'
 import model from '@/model'
 import deleteImgPath from '@/assets/images/delete.png'
+import {fetchFullEditionPhotoUrl} from '@/model/photo'
 
 export default {
   components: {
@@ -47,10 +48,10 @@ export default {
     }
   },
   methods: {
-    goToDownloadPage (e) {
-      console.log('click', e)
+    async goToDownloadPage (certId) {
+      const url = await fetchFullEditionPhotoUrl(certId)
       wx.navigateTo({
-        'url': `/pages/certificate-details/main?src=https://lc-gvpjrw4u.cn-e1.lcfile.com/8c94f04bc4f4397ce9b7/Untitled.png`
+        'url': `/pages/certificate-details/main?src=${url}`
       })
     },
     showDeleteModal () {
@@ -88,7 +89,6 @@ export default {
       this.current = e.target.current
     },
     getItemKey (certId) {
-      console.log('getItemKey', certId)
       certId.slice(2, -1)
     }
   }

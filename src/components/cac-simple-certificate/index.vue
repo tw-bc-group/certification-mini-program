@@ -7,7 +7,7 @@
 
 <script>
 import verifiedImgPath from '@/assets/images/verified.png'
-import {fetchPhotoUrl} from '@/model/photo'
+import {fetchSimplePhotoUrl} from '@/model/photo'
 
 export default {
   data () {
@@ -21,13 +21,11 @@ export default {
   },
   watch: {
     async certId (newCertId) {
-      console.log('watch:', this.certId)
-      this.certUrl = await fetchPhotoUrl(this.certId)
+      this.certUrl = await fetchSimplePhotoUrl(this.certId)
     }
   },
   async beforeMount () {
-    console.log('beforeMount:', this.certId)
-    this.certUrl = await fetchPhotoUrl(this.certId)
+    this.certUrl = await fetchSimplePhotoUrl(this.certId)
   }
 }
 </script>
