@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div  class="container" v-if="isValidQRCode">
+  <div class="wrapper">
+    <div class="container" v-if="isValidQRCode">
       <cac-simple-certificate :certId="certId">
       </cac-simple-certificate>
       <div class="collect-button">
@@ -99,6 +99,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .wrapper {
+    height: 100%;
+  }
   .cert-detail-item {
     margin-left: 16px;
   }
@@ -107,7 +110,8 @@ export default {
 
     .collect-button {
       width: 100%;
-      margin-top: 61px;
+      margin-top: auto;
+      margin-bottom: 48px;
     }
   }
 </style>

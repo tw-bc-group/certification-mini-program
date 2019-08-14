@@ -8,14 +8,19 @@
       <p>我的证书</p>
       <img class="form-item-arrow-icon" :src="arrowImgPath"/>
     </div>
+    <cac-button clazz="scan-btn" text="扫码添加证书" :click="scan"></cac-button>
   </div>
 </template>
 
 <script>
 import userDefaultImgPath from '@/assets/images/user-default.png'
 import arrowImgPath from '@/assets/images/right-arrow.png'
+import CacButton from '@/components/cac-button'
 
 export default {
+  components: {
+    CacButton
+  },
   data () {
     return {
       userInfo: wx.getStorageSync('userInfo') || {},
@@ -40,6 +45,19 @@ export default {
     },
     goToMyCertificates () {
       wx.navigateTo({ url: '../my-certificates/main' })
+    },
+    scan () {
+      wx.scanCode({
+        success: (res) => {
+          this.jumpToCertDetailsPage(res.result)
+        },
+        fail: (error) => {
+          console.log(error)
+        }
+      })
+    },
+    jumpToCertDetailsPage (qrCode) {
+      wx.navigateTo({'url': `/pages/scanning-info/main?qrCode=${qrCode}`})
     }
   }
 }

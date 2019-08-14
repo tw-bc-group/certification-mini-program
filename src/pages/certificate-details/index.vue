@@ -101,6 +101,8 @@ export default {
       width: 100%;
       padding: 24px 50px 0 50px;
       box-sizing: border-box;
+      margin-top: auto;
+      margin-bottom: 48px;
     }
   }
 </style>

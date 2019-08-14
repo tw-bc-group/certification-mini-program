@@ -1,25 +1,11 @@
 {
   "pages": [
+    "pages/me/main",
     "pages/index/main",
     "pages/scanning-info/main",
-    "pages/me/main",
     "pages/my-certificates/main",
     "pages/certificate-details/main"
   ],
-  "tabBar": {
-    "selectedColor": "#f25248",
-    "list": [{
-      "pagePath": "pages/index/main",
-      "iconPath": "static/tabs/home.png",
-      "selectedIconPath": "static/tabs/home-active.png",
-      "text": "主页"
-    }, {
-      "pagePath": "pages/me/main",
-      "iconPath": "static/tabs/me.png",
-      "selectedIconPath": "static/tabs/me-active.png",
-      "text": "我的"
-    }]
-  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

@@ -1,5 +1,5 @@
 <template>
-  <button class="cac-button" @click="click()">
+  <button :class="clazzName" @click="click()">
     {{ text }}
   </button>
 </template>
@@ -8,7 +8,13 @@
 export default {
   props: {
     text: String,
-    click: Function
+    click: Function,
+    clazz: String
+  },
+  computed: {
+    clazzName () {
+      return 'cac-button ' + this.clazz || ''
+    }
   }
 }
 </script>
@@ -30,6 +36,10 @@ export default {
 
     &:active {
       box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    &.scan-btn {
+      margin: auto auto 48px auto;
     }
   }
 </style>
