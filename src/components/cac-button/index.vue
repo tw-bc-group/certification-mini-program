@@ -2,10 +2,18 @@
   <button :class="clazzName" @click="click()">
     {{ text }}
   </button>
+  <!-- <img class="scan-icon" :src="scanImgPath /> -->
 </template>
 
 <script>
+import scanImgPath from '@/assets/images/scan.png'
+
 export default {
+  data () {
+    return {
+      scanImgPath
+    }
+  },
   props: {
     text: String,
     click: Function,
@@ -40,6 +48,11 @@ export default {
 
     &.scan-btn {
       margin: auto auto 48px auto;
+      background-image: url('~@/assets/images/scan.png');
+      background-repeat: no-repeat;
+      background-size: 35.2px 35.2px;
+      background-position-x: 92px;
+      background-position-y: 3px;
     }
   }
 </style>
