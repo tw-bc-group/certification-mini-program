@@ -36,7 +36,7 @@ export default {
 
     .simple-certificate-image {
       width: 287px;
-      height: 365px;
+      height: 347.7px;
       border-radius: 6.3px;
       box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.2);
     }
