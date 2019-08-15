@@ -2,7 +2,7 @@ import AV from 'leancloud-storage'
 
 const LEANCLOUD_CLASS = 'Photo'
 const INDEX = 'certId'
-const ALL_NEED_TYPE_PHOTOS = ['png', 'simpleSvg']
+const ALL_NEED_TYPE_PHOTOS = ['png', 'simplePng']
 
 async function fetchPhotoUrl (certId, key) {
   const query = new AV.Query(LEANCLOUD_CLASS)
@@ -16,7 +16,7 @@ async function fetchPhotoUrl (certId, key) {
 }
 
 export async function fetchSimplePhotoUrl (certId) {
-  return fetchPhotoUrl(certId, 'simpleSvg')
+  return fetchPhotoUrl(certId, 'simplePng')
 }
 
 export async function fetchFullEditionPhotoUrl (certId) {
