@@ -23,23 +23,11 @@ export default {
   },
   data () {
     return {
-      userInfo: wx.getStorageSync('userInfo') || {},
       userDefaultImgPath,
       arrowImgPath
     }
   },
-  computed: {
-    isLogin () {
-      return Object.keys(this.userInfo).length > 0
-    }
-  },
   methods: {
-    getUserInfo (e) {
-      if (!e.target.userInfo) return
-
-      this.userInfo = e.target.userInfo
-      wx.setStorageSync('userInfo', this.userInfo)
-    },
     goToMyCertificates () {
       wx.navigateTo({ url: '../my-certificates/main' })
     },
@@ -55,6 +43,12 @@ export default {
     },
     jumpToCertDetailsPage (qrCode) {
       wx.navigateTo({'url': `/pages/scanning-info/main?qrCode=${qrCode}`})
+    }
+  },
+  onReady () {
+    const scanParamFromRoot = this.$root.$mp.query.q
+    if (scanParamFromRoot) {
+      this.jumpToCertDetailsPage(decodeURIComponent(scanParamFromRoot))
     }
   }
 }
