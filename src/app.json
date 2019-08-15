@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/me/main",
     "pages/index/main",
     "pages/scanning-info/main",
     "pages/my-certificates/main",
