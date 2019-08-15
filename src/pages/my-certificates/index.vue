@@ -51,7 +51,7 @@ export default {
     async goToDownloadPage (certId) {
       const url = await fetchFullEditionPhotoUrl(certId)
       wx.navigateTo({
-        'url': `/pages/certificate-details/main?src=${url}`
+        'url': `/pages/certificate-details/main?src=${url.replace('http', 'https')}`
       })
     },
     showDeleteModal () {
