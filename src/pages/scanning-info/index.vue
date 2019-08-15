@@ -15,11 +15,9 @@
 import CacSimpleCertificate from '@/components/cac-simple-certificate'
 import CacButton from '@/components/cac-button'
 import CacErrorInfo from '@/components/cac-error-info'
-import api from '@/api'
 
 import model from '@/model'
 import { qrCodeReg } from '@/utils/constants'
-import { formatTime } from '@/utils'
 
 export default {
   components: {
@@ -31,7 +29,6 @@ export default {
     return {
       qrCode: '',
       certId: '',
-      certDetail: {},
       isAdded: false,
       isValidQRCode: false
     }
@@ -44,9 +41,6 @@ export default {
     this.qrCode = this.$root.$mp.query.qrCode
   },
   computed: {
-    isShowCertDetail () {
-      return Object.keys(this.certDetail).length !== 0
-    },
     detailButtonText () {
       return this.isAdded ? '前往我的证书查看' : '添加到我的证书'
     }
@@ -66,14 +60,6 @@ export default {
     this.checkIsMyCert()
   },
   methods: {
-    async getCertDetail () {
-      const { issueDate, expireDate, ...others } = await api.getCertificationInfo(this.certId)
-      this.certDetail = {
-        ...others,
-        issueDate: formatTime(issueDate),
-        expireDate: formatTime(expireDate)
-      }
-    },
     async checkIsMyCert () {
       const isMyCert = await model.User.isMyCert(this.certId)
       console.log('onShow:', this.certId)
