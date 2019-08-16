@@ -8,6 +8,10 @@
       <p>我的证书</p>
       <img class="form-item-arrow-icon" :src="arrowImgPath"/>
     </div>
+    <div class="form-item" @click="gotoDongjian">
+      <p>洞见小程序</p>
+      <img class="form-item-arrow-icon" :src="arrowImgPath"/>
+    </div>
     <cac-button clazz="scan-btn" text="扫码添加证书" :click="scan"></cac-button>
   </div>
 </template>
@@ -38,6 +42,15 @@ export default {
         },
         fail: (error) => {
           console.log(error)
+        }
+      })
+    },
+    gotoDongjian () {
+      wx.navigateToMiniProgram({
+        appId: 'wx6ac335896f1078f1',
+        path: 'pages/index/index',
+        success (res) {
+          console.log('打开成功', res)
         }
       })
     },
