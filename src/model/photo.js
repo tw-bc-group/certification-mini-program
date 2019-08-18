@@ -16,7 +16,7 @@ async function fetchPhotoUrl (certId, key) {
 }
 
 export async function fetchSimplePhotoUrl (certId) {
-  return fetchPhotoUrl(certId, 'simplePng')
+  return fetchPhotoUrl(certId, 'simplePng') || fetchPhotoUrl(certId, 'png')
 }
 
 export async function fetchFullEditionPhotoUrl (certId) {
