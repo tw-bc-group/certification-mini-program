@@ -3,8 +3,8 @@ import User from './user'
 import Photo from './photo'
 
 AV.init({
-  appId: 'gVpjrW4U6TfrM4AGmxX9toma-9Nh9j0Va',
-  appKey: '5ypXCePx32LNLbO0sdSxcBlw'
+  appId: process.env.LC_APP_ID,
+  appKey: process.env.LC_APP_KEY
 })
 
 export default {

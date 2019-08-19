@@ -59,6 +59,8 @@ export default {
     }
   },
   onReady () {
+    console.log(process.env.NODE_ENV)
+    console.log(process.env.LC_APP_ID)
     const scanParamFromRoot = this.$root.$mp.query.q
     if (scanParamFromRoot) {
       this.jumpToCertDetailsPage(decodeURIComponent(scanParamFromRoot))
