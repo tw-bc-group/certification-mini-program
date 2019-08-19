@@ -47,7 +47,7 @@ export default {
     }
 
     &.scan-btn {
-      margin: auto auto 48px auto;
+      margin: 0 auto 48px auto;
       background-image: url('~@/assets/images/scan.png');
       background-repeat: no-repeat;
       background-size: 35.2px 35.2px;

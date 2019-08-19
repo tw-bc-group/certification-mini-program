@@ -12,6 +12,7 @@
       <p>洞见小程序</p>
       <img class="form-item-arrow-icon" :src="arrowImgPath"/>
     </div>
+    <official-account style="width:100%;margin: auto auto 20px auto;"></official-account>
     <cac-button clazz="scan-btn" text="扫码添加证书" :click="scan"></cac-button>
   </div>
 </template>
