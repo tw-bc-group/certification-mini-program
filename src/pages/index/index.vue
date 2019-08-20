@@ -158,7 +158,6 @@ export default {
 
     .related-link {
         height: 20px;
-        opacity: 0.5;
         font-size: 14px;
         color: #323232;
         margin: 30px auto 0 0;
@@ -168,7 +167,7 @@ export default {
       width: 100%;
       height: 76px;
       border-radius: 2px;
-      border: solid 0.5px #d5d5d5;
+      border: solid 0.7px #d2d2d2;
       background-color: #ffffff;
 
       margin-top: 10px;
@@ -178,8 +177,8 @@ export default {
       p {
         width: 100%;
         height: 22px;
-        font-size: 9px;
-        color: #323232;
+        font-size: 9.2px;
+        color: #b6b6b6;
 
         // margin: 4px auto auto 7px;
       }
@@ -209,7 +208,7 @@ export default {
             height: 18px;
             font-size: 10px;
             letter-spacing: 0.39px;
-            color: #323232;
+            color: #828282;
           }
         }
 
