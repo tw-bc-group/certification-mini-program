@@ -5,14 +5,23 @@
       <open-data class="user-info-nickname" type="userNickName"></open-data>
     </div>
     <div class="form-item" @click="goToMyCertificates">
+      <img class="form-item-icon" :src="myCertIcon" />
       <p>我的证书</p>
       <img class="form-item-arrow-icon" :src="arrowImgPath"/>
     </div>
-    <div class="form-item" @click="gotoDongjian">
-      <p>洞见小程序</p>
-      <img class="form-item-arrow-icon" :src="arrowImgPath"/>
+    <div class="related-link">相关链接</div>
+    <div class="insight-container" @click="gotoDongjian">
+      <p>CAC敏捷教练关联的小程序</p>
+      <div class="insight-content">
+        <img class="insight-icon" :src="insightsIcon"/>
+        <div class="insight-text">
+          <p class="title">ThoughtWorks洞见</p>
+          <p class="description">ThoughtWorks洞见汇集了来自Thought…</p>
+        </div>
+        <div class="insight-btn">查看</div>
+      </div>
     </div>
-    <official-account style="width:100%;margin: auto auto 20px auto;"></official-account>
+    <official-account style="width:100%;margin: 10px auto auto auto;"></official-account>
     <cac-button clazz="scan-btn" text="扫码添加证书" :click="scan"></cac-button>
   </div>
 </template>
@@ -21,6 +30,8 @@
 import userDefaultImgPath from '@/assets/images/user-default.png'
 import arrowImgPath from '@/assets/images/right-arrow.png'
 import CacButton from '@/components/cac-button'
+import myCertIcon from '@/assets/images/my-cert.png'
+import insightsIcon from '@/assets/images/insights.png'
 
 export default {
   components: {
@@ -29,7 +40,9 @@ export default {
   data () {
     return {
       userDefaultImgPath,
-      arrowImgPath
+      arrowImgPath,
+      myCertIcon,
+      insightsIcon
     }
   },
   methods: {
@@ -116,19 +129,103 @@ export default {
     .form-item {
       width: 100%;
       height: $form-height;
+      border-radius: 6px;
+      border: solid 0.5px #d5d5d5;
       margin-top: 24px;
 
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       font-size: 14px;
+
+      .form-item-icon {
+        width: $form-height;
+        height: $form-height;
+      }
+
+      p {
+        height: 20px;
+        font-size: 14px;
+        color: #111111;
+      }
 
       &-arrow-icon {
         width: $form-height;
         height: $form-height;
+        margin: auto 0 auto auto;
+      }
+    }
 
-        position: relative;
-        right: -17px;
+    .related-link {
+        height: 20px;
+        opacity: 0.5;
+        font-size: 14px;
+        color: #323232;
+        margin: 30px auto 0 0;
+    }
+
+    .insight-container {
+      width: 100%;
+      height: 76px;
+      border-radius: 2px;
+      border: solid 0.5px #d5d5d5;
+      background-color: #ffffff;
+
+      margin-top: 10px;
+      padding: 4px 11px 10px 7px;
+      box-sizing: border-box;
+
+      p {
+        width: 100%;
+        height: 22px;
+        font-size: 9px;
+        color: #323232;
+
+        // margin: 4px auto auto 7px;
+      }
+
+      .insight-content {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        img {
+          width: 35px;
+          height: 34px;
+          margin-top: 2px;
+        }
+
+        .insight-text {
+          margin-left: 10px;
+
+          .title {
+            height: 22px;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            color: #323232;
+          }
+
+          .description {
+            height: 18px;
+            font-size: 10px;
+            letter-spacing: 0.39px;
+            color: #323232;
+          }
+        }
+
+        .insight-btn {
+          width: 53px;
+          height: 23px;
+          line-height: 23px;
+          border-radius: 2px;
+          border: solid 1px #09bb07;
+
+          font-size: 12px;
+          text-align: center;
+          color: #09bb07;
+
+          margin: auto 0 auto auto;
+        }
       }
     }
   }

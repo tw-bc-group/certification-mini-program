@@ -1,8 +1,8 @@
 <template>
-  <button :class="clazzName" @click="click()">
+  <div :class="clazzName" @click="click()">
+    <img v-show="showScanIcon" class="scan-icon" :src="scanImgPath" />
     {{ text }}
-  </button>
-  <!-- <img class="scan-icon" :src="scanImgPath /> -->
+  </div>
 </template>
 
 <script>
@@ -22,6 +22,9 @@ export default {
   computed: {
     clazzName () {
       return 'cac-button ' + this.clazz || ''
+    },
+    showScanIcon () {
+      return this.clazz && this.clazz.includes('scan-btn')
     }
   }
 }
@@ -29,7 +32,7 @@ export default {
 
 <style lang="scss" scoped>
   .cac-button {
-    width: 100%;
+    width: 287px;
     height: 44px;
 
     display: flex;
@@ -48,11 +51,11 @@ export default {
 
     &.scan-btn {
       margin: 0 auto 48px auto;
-      background-image: url('~@/assets/images/scan.png');
-      background-repeat: no-repeat;
-      background-size: 35.2px 35.2px;
-      background-position-x: 92px;
-      background-position-y: 3px;
+      
+      .scan-icon {
+        width: 35.2px;
+        height: 35.2px;
+      }
     }
   }
 </style>
