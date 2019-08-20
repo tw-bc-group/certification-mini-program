@@ -167,8 +167,7 @@ export default {
       width: 100%;
       height: 76px;
       border-radius: 2px;
-      border: solid 0.7px #d2d2d2;
-      background-color: #ffffff;
+      border: solid 0.9px #CFCFCF;
 
       margin-top: 10px;
       padding: 4px 11px 10px 7px;
