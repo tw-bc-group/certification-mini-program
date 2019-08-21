@@ -130,7 +130,7 @@ export default {
       width: 100%;
       height: $form-height;
       border-radius: 6px;
-      border: solid 0.5px #d5d5d5;
+      border: solid 0.9px #CFCFCF;
       margin-top: 24px;
 
       display: flex;

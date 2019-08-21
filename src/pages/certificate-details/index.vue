@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <image class="full-edition-img" :src="src" mode="widthFix" />
-    <div class="download-wrapper">
+    <image class="full-edition-img" :src="src" mode="aspectFit" />
+    <div class="download-btn-wrapper">
       <cac-button :text="btnText" :click="downloadAndSaveToPhotosAlbum"></cac-button>
     </div>
   </div>
@@ -95,16 +95,10 @@ export default {
 
 <style lang="scss" scoped>
   .container {
-    padding-top: 24px;
+    padding-bottom: 48px;
     .full-edition-img {
       width: 100%;
-    }
-    .download-wrapper {
-      width: 100%;
-      padding: 24px 50px 0 50px;
-      box-sizing: border-box;
-      margin-top: auto;
-      margin-bottom: 48px;
+      height: 529.375px;
     }
   }
 </style>
