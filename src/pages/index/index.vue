@@ -22,7 +22,7 @@
       </div>
     </div>
     <official-account style="width:100%;margin: 10px auto auto auto;"></official-account>
-    <cac-button clazz="scan-btn" text="扫码添加证书" :click="scan"></cac-button>
+    <cac-button clazz="scan-btn" text="扫码验证证书" :click="scan"></cac-button>
   </div>
 </template>
 
