@@ -4,8 +4,8 @@
       <cac-simple-certificate :certId="certId"></cac-simple-certificate>
       <div class="collect-button">
         <cac-button :clazz="goToMyCertClass" :click="goToMyCert" :text="detailButtonText" />
-        <cac-button :clazz="collectionBtnClass" :click="addToMyCollection" text="添加到我的收藏" />
-        <cac-button :clazz="myCertBtnClass" :click="addToMyCert" text="添加到我的证书" />
+        <cac-button :clazz="collectionBtnClass" :click="() => addCertTo('myCollections')" text="添加到我的收藏" />
+        <cac-button :clazz="myCertBtnClass" :click="() => addCertTo('myCerts')" text="添加到我的证书" />
       </div>
     </div>
     <CacErrorInfo v-else hint="未扫描到有效证书"></CacErrorInfo>
@@ -17,7 +17,7 @@ import CacSimpleCertificate from '@/components/cac-simple-certificate'
 import CacButton from '@/components/cac-button'
 import CacErrorInfo from '@/components/cac-error-info'
 
-import model from '@/model'
+import {addCert, addToMyCollections, isMyCert, isMyCollection} from '@/model/user'
 import { qrCodeReg } from '@/utils/constants'
 
 export default {
@@ -30,9 +30,29 @@ export default {
     return {
       qrCode: '',
       certId: '',
-      isAddedCert: false,
-      isAddedCollection: false,
-      isValidQRCode: false
+      isValidQRCode: false,
+      flags: {
+        'myCerts': {
+          isAdded: false
+        },
+        'myCollections': {
+          isAdded: false
+        }
+      },
+      handlers: {
+        'myCerts': {
+          add: addCert,
+          isAdded: isMyCert
+        },
+        'myCollections': {
+          add: addToMyCollections,
+          isAdded: isMyCollection
+        }
+      },
+      goToBtnText: {
+        'myCerts': '前往我的证书查看',
+        'myCollections': '前往我的收藏查看'
+      }
     }
   },
   onLoad () {
@@ -49,17 +69,34 @@ export default {
     }
   },
   computed: {
+    goToWhichType () {
+      const {myCerts} = this.flags
+      return myCerts.isAdded ? 'myCerts' : 'myCollections'
+    },
+    showGoToBtn () {
+      const {myCerts, myCollections} = this.flags
+      return myCerts.isAdded || myCollections.isAdded
+    },
     detailButtonText () {
-      return this.isAddedCert ? '前往我的证书查看' : '前往我的收藏查看'
+      return this.goToBtnText[this.goToWhichType]
     },
     goToMyCertClass () {
-      return this.isAddedCert || this.isAddedCollection ? '' : 'hide'
+      return {
+        true: '',
+        false: 'hide'
+      }[this.showGoToBtn]
     },
     collectionBtnClass () {
-      return this.isAddedCert || this.isAddedCollection ? 'add-collection-btn hide' : 'add-collection-btn'
+      return {
+        true: 'add-collection-btn hide',
+        false: 'add-collection-btn'
+      }[this.showGoToBtn]
     },
     myCertBtnClass () {
-      return this.isAddedCert || this.isAddedCollection ? 'add-my-cert-btn hide' : 'add-my-cert-btn'
+      return {
+        true: 'add-my-cert-btn hide',
+        false: 'add-my-cert-btn'
+      }[this.showGoToBtn]
     }
   },
   onShow () {
@@ -68,41 +105,26 @@ export default {
   },
   methods: {
     async checkIsMyCert () {
-      this.isAddedCert = await model.User.isMyCert(this.certId)
-      this.isAddedCollection = await model.User.isMyCollection(this.certId)
-      console.debug('isAddedCert: ', this.isAddedCert)
-      console.debug('isAddedCollection: ', this.isAddedCollection)
+      this.flags = {
+        'myCerts': {isAdded: await this.handlers['myCerts'].isAdded(this.certId)},
+        'myCollections': {isAdded: await this.handlers['myCollections'].isAdded(this.certId)}
+      }
+      console.debug('this.flags: ', JSON.stringify(this.flags))
     },
-    async addToMyCert () {
-      await model.User.addCert(this.certId)
+    async addCertTo (type) {
+      await this.handlers[type].add(this.certId)
       wx.showToast({
         title: '已添加',
         icon: 'success',
         duration: 1000,
         mask: true,
         success: res => {
-          this.isAddedCert = true
-        }
-      })
-    },
-    async addToMyCollection () {
-      await model.User.addToMyCollections(this.certId)
-      wx.showToast({
-        title: '已添加',
-        icon: 'success',
-        duration: 1000,
-        mask: true,
-        success: res => {
-          this.isAddedCollection = true
+          this.flags[type].isAdded = true
         }
       })
     },
     goToMyCert () {
-      let type = 'myCerts'
-      if (this.isAddedCollection) {
-        type = 'myCollections'
-      }
-      wx.navigateTo({ url: `../my-certificates/main?type=${type}` })
+      wx.navigateTo({ url: `../my-certificates/main?type=${this.goToWhichType}` })
     }
   }
 }
