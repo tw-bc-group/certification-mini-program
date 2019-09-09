@@ -12,22 +12,56 @@ const FIELD_COLLECTIONS = 'collections'
 //   return this.setACL(acl).save()
 // }
 
-function login () {
+export function login () {
   return AV.User.loginWithWeapp({
     preferUnionId: true
   })
+}
+
+export async function addCert (certId) {
+  return add(certId, FIELD_CERTS)
+}
+
+export async function addToMyCollections (certId) {
+  return add(certId, FIELD_COLLECTIONS)
+}
+
+export async function getAllCollections () {
+  return fetchAttr(FIELD_COLLECTIONS)
+}
+
+export async function getAllCerts () {
+  return fetchAttr(FIELD_CERTS)
+}
+
+export async function isMyCert (certId) {
+  return includes(certId, FIELD_CERTS)
+}
+
+export async function isMyCollection (certId) {
+  return includes(certId, FIELD_COLLECTIONS)
+}
+
+export async function removeCert (certId) {
+  return remove(certId, FIELD_CERTS)
+}
+
+export async function removeCollection (certId) {
+  return remove(certId, FIELD_COLLECTIONS)
 }
 
 function self () {
   return AV.User.current()
 }
 
-async function addCert (certId) {
-  return add(certId, FIELD_CERTS)
+async function includes (certId, field) {
+  const certs = await fetchAttr(field)
+  return certs.includes(certId)
 }
 
-async function addToMyCollections (certId) {
-  return add(certId, FIELD_COLLECTIONS)
+async function fetchAttr (field) {
+  const user = await self().fetch({ keys: field })
+  return user.get(field)
 }
 
 async function add (certId, field) {
@@ -36,37 +70,6 @@ async function add (certId, field) {
   certs.push(certId)
   user.set(field, certs)
   return user.save()
-}
-
-async function getAllCollections () {
-  return fetchAttr(FIELD_COLLECTIONS)
-}
-
-async function getAllCerts () {
-  return fetchAttr(FIELD_CERTS)
-}
-
-async function fetchAttr (field) {
-  const user = await self().fetch({ keys: field })
-  return user.get(field)
-}
-
-async function isMyCert (certId) {
-  const certs = await fetchAttr(FIELD_CERTS)
-  return certs.includes(certId)
-}
-
-async function isMyCollection (certId) {
-  const certs = await fetchAttr(FIELD_COLLECTIONS)
-  return certs.includes(certId)
-}
-
-async function removeCert (certId) {
-  return remove(certId, FIELD_CERTS)
-}
-
-async function removeCollection (certId) {
-  return remove(certId, FIELD_COLLECTIONS)
 }
 
 async function remove (certId, field) {

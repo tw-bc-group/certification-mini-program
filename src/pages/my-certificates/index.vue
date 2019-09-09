@@ -20,7 +20,7 @@
 <script>
 import cacSimpleCertificate from '@/components/cac-simple-certificate'
 import cacErrorInfo from '@/components/cac-error-info'
-import model from '@/model'
+import {getAllCerts, getAllCollections, removeCert, removeCollection} from '@/model/user'
 import deleteImgPath from '@/assets/images/delete.png'
 import {fetchFullEditionPhotoUrl} from '@/model/photo'
 
@@ -34,24 +34,32 @@ export default {
       deleteImgPath,
       current: 0,
       certificateList: [],
-      type: ''
+      type: '',
+      handlers: {
+        'myCerts': {
+          'remove': removeCert,
+          'fetch': getAllCerts
+        },
+        'myCollections': {
+          'remove': removeCollection,
+          'fetch': getAllCollections
+        }
+      },
+      title: {
+        'myCerts': '我的证书',
+        'myCollections': '我收藏的证书'
+      }
     }
   },
   onLoad () {
     // reset data when load page because mpvue will have cache when enter this page again
     Object.assign(this.$data, this.$options.data())
   },
-  beforeMount () {
-    let title = '我的证书'
+  async beforeMount () {
     this.type = this.$root.$mp.query.type || 'myCerts'
-    console.log(this.type)
-    if (this.type === 'myCollections') {
-      title = '我收藏的证书'
-      this.getAllMyCollections()
-    } else {
-      this.getAllMyCerts()
-    }
-    wx.setNavigationBarTitle({title})
+    this.certificateList = await this.handlers[this.type].fetch()
+    console.log('certificateList:', this.certificateList)
+    wx.setNavigationBarTitle({title: this.title[this.type]})
   },
   computed: {
     hasCertificates () {
@@ -84,25 +92,13 @@ export default {
         }
       })
     },
-    async getAllMyCerts () {
-      this.certificateList = await model.User.getAllCerts()
-      console.log(this.certificateList)
-    },
-    async getAllMyCollections () {
-      this.certificateList = await model.User.getAllCollections()
-      console.log(this.certificateList)
-    },
     async deleteCurrentCert () {
       const deleteIndex = this.current
       // if delete the last item, make the current second last one
       if (deleteIndex === this.certificateList.length - 1) this.current--
       const certId = this.certificateList[deleteIndex]
 
-      if (this.type === 'myCollections') {
-        await model.User.removeCollection(certId)
-      } else {
-        await model.User.removeCert(certId)
-      }
+      await this.handlers[this.type].remove(certId)
       this.certificateList = this.certificateList.filter(cert => cert !== certId)
     },
     onSwiperChange (e) {

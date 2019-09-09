@@ -68,7 +68,6 @@ export default {
   },
   methods: {
     async checkIsMyCert () {
-      console.debug('checkIsMyCert:', this.certId)
       this.isAddedCert = await model.User.isMyCert(this.certId)
       this.isAddedCollection = await model.User.isMyCollection(this.certId)
       console.debug('isAddedCert: ', this.isAddedCert)
@@ -98,14 +97,11 @@ export default {
         }
       })
     },
-    goToMyCert (e) {
-      console.log('goToMyCert:', e)
+    goToMyCert () {
       let type = 'myCerts'
-      console.log('goToMyCert', this.isAddedCollection)
       if (this.isAddedCollection) {
         type = 'myCollections'
       }
-      console.log(type)
       wx.navigateTo({ url: `../my-certificates/main?type=${type}` })
     }
   }
