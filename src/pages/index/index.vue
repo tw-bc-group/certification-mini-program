@@ -4,10 +4,18 @@
       <open-data class="user-info-avatar" type="userAvatarUrl"></open-data>
       <open-data class="user-info-nickname" type="userNickName"></open-data>
     </div>
-    <div class="form-item" @click="goToMyCertificates">
-      <img class="form-item-icon" :src="myCertIcon" />
-      <p>我的证书</p>
-      <img class="form-item-arrow-icon" :src="arrowImgPath"/>
+    <div class="item-list">
+      <div class="form-item" @click="() => goToMyCertificates('myCerts')">
+        <img class="form-item-icon" :src="myCertIcon" />
+        <p>我的证书</p>
+        <img class="form-item-arrow-icon" :src="arrowImgPath"/>
+      </div>
+      <div class="cutting-line"></div>
+      <div class="form-item" @click="() => goToMyCertificates('myCollections')">
+        <img class="form-item-icon" :src="myCertIcon" />
+        <p>我的收藏</p>
+        <img class="form-item-arrow-icon" :src="arrowImgPath"/>
+      </div>
     </div>
     <div class="related-link">相关链接</div>
     <div class="insight-container" @click="gotoDongjian">
@@ -46,8 +54,8 @@ export default {
     }
   },
   methods: {
-    goToMyCertificates () {
-      wx.navigateTo({ url: '../my-certificates/main' })
+    goToMyCertificates (type) {
+      wx.navigateTo({ url: `../my-certificates/main?type=${type}` })
     },
     scan () {
       wx.scanCode({
@@ -55,7 +63,13 @@ export default {
           this.jumpToCertDetailsPage(res.result)
         },
         fail: (error) => {
-          console.log(error)
+          wx.showToast({
+            title: '未识别二维码',
+            icon: 'none',
+            duration: 1000,
+            mask: true
+          })
+          console.error(error)
         }
       })
     },
@@ -126,33 +140,45 @@ export default {
       }
     }
 
-    .form-item {
+    .item-list {
       width: 100%;
-      height: $form-height;
+      
       border-radius: 6px;
-      border: solid 0.9px #CFCFCF;
+      border: solid 0.7px #d2d2d2;
       margin-top: 24px;
-
       display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      font-size: 14px;
+      flex-direction: column;
 
-      .form-item-icon {
-        width: $form-height;
-        height: $form-height;
+      .cutting-line {
+        height: 1px;
+        width: 301px;
+        background-color: #d2d2d2;
+        align-self: center;
       }
 
-      p {
-        height: 20px;
+      .form-item {
+        height: $form-height;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
         font-size: 14px;
-        color: #111111;
-      }
 
-      &-arrow-icon {
-        width: $form-height;
-        height: $form-height;
-        margin: auto 0 auto auto;
+        .form-item-icon {
+          width: $form-height;
+          height: $form-height;
+        }
+
+        p {
+          height: 20px;
+          font-size: 14px;
+          color: #111111;
+        }
+
+        &-arrow-icon {
+          width: $form-height;
+          height: $form-height;
+          margin: auto 0 auto auto;
+        }
       }
     }
 

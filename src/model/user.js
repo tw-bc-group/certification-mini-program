@@ -1,6 +1,7 @@
 import AV from 'leancloud-storage'
 
 const FIELD_CERTS = 'certs'
+const FIELD_COLLECTIONS = 'collections'
 
 // save () {
 //   const acl = new AV.ACL()
@@ -22,29 +23,57 @@ function self () {
 }
 
 async function addCert (certId) {
-  const user = await self().fetch({ keys: FIELD_CERTS })
-  const certs = user.get(FIELD_CERTS) || []
+  return add(certId, FIELD_CERTS)
+}
+
+async function addToMyCollections (certId) {
+  return add(certId, FIELD_COLLECTIONS)
+}
+
+async function add (certId, field) {
+  const user = await self().fetch({ keys: field })
+  const certs = user.get(field) || []
   certs.push(certId)
-  user.set(FIELD_CERTS, certs)
+  user.set(field, certs)
   return user.save()
 }
 
+async function getAllCollections () {
+  return fetchAttr(FIELD_COLLECTIONS)
+}
+
 async function getAllCerts () {
-  const user = await self().fetch({ keys: FIELD_CERTS })
-  return user.get(FIELD_CERTS)
+  return fetchAttr(FIELD_CERTS)
+}
+
+async function fetchAttr (field) {
+  const user = await self().fetch({ keys: field })
+  return user.get(field)
 }
 
 async function isMyCert (certId) {
-  const user = await self().fetch({ keys: FIELD_CERTS })
-  const certs = user.get(FIELD_CERTS)
+  const certs = await fetchAttr(FIELD_CERTS)
+  return certs.includes(certId)
+}
+
+async function isMyCollection (certId) {
+  const certs = await fetchAttr(FIELD_COLLECTIONS)
   return certs.includes(certId)
 }
 
 async function removeCert (certId) {
-  const user = await self().fetch({ keys: FIELD_CERTS })
-  const certs = user.get(FIELD_CERTS)
+  return remove(certId, FIELD_CERTS)
+}
+
+async function removeCollection (certId) {
+  return remove(certId, FIELD_COLLECTIONS)
+}
+
+async function remove (certId, field) {
+  const user = await self().fetch({ keys: field })
+  const certs = user.get(field)
   const removedCerts = certs.filter(c => c !== certId)
-  user.set(FIELD_CERTS, removedCerts)
+  user.set(field, removedCerts)
   return user.save()
 }
 
@@ -53,5 +82,9 @@ export default {
   addCert,
   getAllCerts,
   isMyCert,
-  removeCert
+  removeCert,
+  addToMyCollections,
+  getAllCollections,
+  isMyCollection,
+  removeCollection
 }

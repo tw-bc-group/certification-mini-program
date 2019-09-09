@@ -33,14 +33,25 @@ export default {
     return {
       deleteImgPath,
       current: 0,
-      certificateList: []
+      certificateList: [],
+      type: ''
     }
   },
   onLoad () {
-    wx.setNavigationBarTitle({ title: '我的证书' })
     // reset data when load page because mpvue will have cache when enter this page again
     Object.assign(this.$data, this.$options.data())
-    this.getAllMyCerts()
+  },
+  beforeMount () {
+    let title = '我的证书'
+    this.type = this.$root.$mp.query.type || 'myCerts'
+    console.log(this.type)
+    if (this.type === 'myCollections') {
+      title = '我收藏的证书'
+      this.getAllMyCollections()
+    } else {
+      this.getAllMyCerts()
+    }
+    wx.setNavigationBarTitle({title})
   },
   computed: {
     hasCertificates () {
@@ -77,13 +88,22 @@ export default {
       this.certificateList = await model.User.getAllCerts()
       console.log(this.certificateList)
     },
+    async getAllMyCollections () {
+      this.certificateList = await model.User.getAllCollections()
+      console.log(this.certificateList)
+    },
     async deleteCurrentCert () {
       const deleteIndex = this.current
       // if delete the last item, make the current second last one
       if (deleteIndex === this.certificateList.length - 1) this.current--
+      const certId = this.certificateList[deleteIndex]
 
-      await model.User.removeCert(this.certificateList[deleteIndex])
-      this.certificateList = this.certificateList.filter(cert => cert !== this.certificateList[deleteIndex])
+      if (this.type === 'myCollections') {
+        await model.User.removeCollection(certId)
+      } else {
+        await model.User.removeCert(certId)
+      }
+      this.certificateList = this.certificateList.filter(cert => cert !== certId)
     },
     onSwiperChange (e) {
       this.current = e.target.current
