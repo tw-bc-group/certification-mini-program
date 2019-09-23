@@ -150,7 +150,7 @@ export default {
       flex-direction: column;
 
       .cutting-line {
-        height: 1px;
+        height: 0.7px;
         width: 301px;
         background-color: #d2d2d2;
         align-self: center;
